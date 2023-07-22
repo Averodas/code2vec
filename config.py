@@ -31,8 +31,10 @@ class Config:
         parser.add_argument('--release', action='store_true',
                             help='if specified and loading a trained model, release the loaded model for a lower model '
                                  'size.')
-        parser.add_argument('--predict', action='store_true',
+        parser.add_argument('--interactive', action='store_true',
                             help='execute the interactive prediction shell')
+        parser.add_argument('--predict', action='store_true',
+                            help='execute the non-interactive prediction mode')
         parser.add_argument("-fw", "--framework", dest="dl_framework", choices=['keras', 'tensorflow'],
                             default='tensorflow', help="deep learning framework to use.")
         parser.add_argument("-v", "--verbose", dest="verbose_mode", type=int, required=False, default=1,
@@ -73,6 +75,7 @@ class Config:
         args = self.arguments_parser().parse_args()
         # Automatically filled, do not edit:
         self.PREDICT = args.predict
+        self.INTERACTIVE = args.interactive
         self.MODEL_SAVE_PATH = args.save_path
         self.MODEL_LOAD_PATH = args.load_path
         self.TRAIN_DATA_PATH_PREFIX = args.data_path

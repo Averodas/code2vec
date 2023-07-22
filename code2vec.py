@@ -1,6 +1,7 @@
 from vocabularies import VocabType
 from config import Config
 from interactive_predict import InteractivePredictor
+from noninteractive_predict import Predictor
 from model_base import Code2VecModelBase
 
 
@@ -32,7 +33,10 @@ if __name__ == '__main__':
         if eval_results is not None:
             config.log(
                 str(eval_results).replace('topk', 'top{}'.format(config.TOP_K_WORDS_CONSIDERED_DURING_PREDICTION)))
-    if config.PREDICT:
+    if config.INTERACTIVE:
         predictor = InteractivePredictor(config, model)
+        predictor.predict()
+    if config.PREDICT:
+        predictor = Predictor(config, model)
         predictor.predict()
     model.close_session()
