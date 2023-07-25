@@ -1,3 +1,4 @@
+import json
 import traceback
 
 from common import common
@@ -34,16 +35,21 @@ class Predictor:
         method_prediction_results = common.parse_prediction_results(
             raw_prediction_results, hash_to_string_dict,
             self.model.vocabs.target_vocab.special_words, topk=SHOW_TOP_CONTEXTS)
+        data = {
+            "data": []
+        }
         for raw_prediction, method_prediction in zip(raw_prediction_results, method_prediction_results):
-            print('Predicted: %s;' % method_prediction.original_name,end='')
+            prediction = {
+                "originalName": method_prediction.original_name,
+                "predictions": []
+            }
+            # print('Predicted: %s;' % method_prediction.original_name,end='')
             for name_prob_pair in method_prediction.predictions:
-                print('%f,%s' % (name_prob_pair['probability'], ("_".join(name_prob_pair['name']))),end=";")
-            print()
-
-
-        # orginal name = getName (get, name)
-        # predition1 = get 0,8
-        # prediction2 = [get name of function] 0.2
-        # Predicted: original_name;
-        # Example:
-        # Predicted: getName;0.223443-E,get_name_of_function;0.8,get
+                # print('%f,%s' % (name_prob_pair['probability'], ("_".join(name_prob_pair['name']))),end=";")
+                predPair = {
+                    "predictedName": ("_".join(name_prob_pair['name'])),
+                    "weight": name_prob_pair['probability']
+                }
+                prediction['predictions'].append(predPair)
+            data['data'].append(prediction)
+        print(json.dumps(data))
