@@ -6,7 +6,7 @@ from extractor import Extractor
 SHOW_TOP_CONTEXTS = 10
 MAX_PATH_LENGTH = 8
 MAX_PATH_WIDTH = 2
-JAR_PATH = 'JavaExtractor/JPredict/target/JavaExtractor-0.0.1-SNAPSHOT.jar'
+JAR_PATH = '../code2vec/JavaExtractor/JPredict/target/JavaExtractor-0.0.1-SNAPSHOT.jar'
 
 
 class Predictor:
@@ -26,7 +26,7 @@ class Predictor:
             return file.readlines()
 
     def predict(self):
-        input_filename = 'Input.java'
+        input_filename = '../code2vec/Input.java'
 
         predict_lines, hash_to_string_dict = self.path_extractor.extract_paths(input_filename)
 
