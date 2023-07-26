@@ -49,7 +49,7 @@ class Predictor:
                     "weight": name_prob_pair['probability']
                 }
                 predictionSet['predictions'].append(prediction)
-            predictionSets.append(prediction)
+            predictionSets.append(predictionSet)
         print("==========")
         print(json.dumps(predictionSets))
         print("==========")
