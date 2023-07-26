@@ -38,14 +38,14 @@ class Predictor:
         predictionSets = []
         for raw_prediction, method_prediction in zip(raw_prediction_results, method_prediction_results):
             predictionSet = {
-                "originalName": method_prediction.original_name,
+                "originalName": method_prediction.original_name.split("|"),
                 "predictions": []
             }
             # print('Predicted: %s;' % method_prediction.original_name,end='')
             for name_prob_pair in method_prediction.predictions:
                 # print('%f,%s' % (name_prob_pair['probability'], ("_".join(name_prob_pair['name']))),end=";")
                 prediction = {
-                    "predictedName": ("_".join(name_prob_pair['name'])),
+                    "predictedName": name_prob_pair['name'],
                     "weight": name_prob_pair['probability']
                 }
                 predictionSet['predictions'].append(prediction)
